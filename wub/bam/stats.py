@@ -398,6 +398,8 @@ def error_and_read_stats(bam, refs, context_sizes=(1, 1), region=None, min_aqual
         _update_read_stats(r, read_stats, min_aqual)
         if r.is_unmapped:
             continue
+        if r.query_sequence is None:
+            continue
         if r.mapping_quality < min_aqual:
             continue
         ref = refs[r.reference_name]
@@ -405,11 +407,17 @@ def error_and_read_stats(bam, refs, context_sizes=(1, 1), region=None, min_aqual
 
     base_stats['aln_length'] = base_stats['match'] + base_stats['mismatch'] + \
         base_stats['insertion'] + base_stats['deletion']
-    base_stats['identity'] = float(
-        base_stats['match']) / (base_stats['match'] + base_stats['mismatch'])
-    base_stats['accuracy'] = 1.0 - \
-        float(base_stats['mismatch'] + base_stats['insertion'] + base_stats['deletion']) / \
-        base_stats['aln_length']
+    if base_stats['match'] + base_stats['mismatch'] == 0:
+        base_stats['identity'] = 0
+    else:
+        base_stats['identity'] = float(
+            base_stats['match']) / (base_stats['match'] + base_stats['mismatch'])
+    if base_stats['aln_length'] == 0:
+        base_stats['accuracy'] = 0
+    else:
+        base_stats['accuracy'] = 1.0 - \
+            float(base_stats['mismatch'] + base_stats['insertion'] + base_stats['deletion']) / \
+            base_stats['aln_length']
 
     res = {'events': dict(events), 'read_stats': dict(
         read_stats), 'indel_dists': dict(indel_dists), 'base_stats': base_stats}
