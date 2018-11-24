@@ -154,7 +154,7 @@ def merge_pickles(obj_list):
                                                             for obj in obj_list)
         else:
             # Get all values for this key
-            all_insertion_lengths = list(set(obj['indel_stats'][indel_key].keys() for obj in obj_list))
+            all_insertion_lengths = list(set(chain(*(obj['indel_stats'][indel_key].keys() for obj in obj_list))))
             # Sum for each insertion length
             for length in all_insertion_lengths:
                 merged['indel_stats'][indel_key][length] = sum(obj['indel_stats'][indel_key][length]
