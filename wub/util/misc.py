@@ -175,7 +175,7 @@ def merge_pickles(obj_list):
     merged['base_stats']['accuracy'] = sum(merged['base_stats']['match']) / \
                                        (sum(merged['base_stats']['match']) +
                                         sum(merged['base_stats']['mismatch']) +
-                                        sum(merged['base_stats']['insertion'])
+                                        sum(merged['base_stats']['insertion']) +
                                         sum(merged['base_stats']['deletion']))
 
     return merged
