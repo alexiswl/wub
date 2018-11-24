@@ -150,7 +150,7 @@ def merge_pickles(obj_list):
         merged['indel_stats'][indel_key] = {}
         if indel_key == 'insertion_composition':
             for nuc in all_nucs:
-                merged['indel_stats'][indel_key][nuc] = sum(obj_list['indel_stats'][indel_key][nuc]
+                merged['indel_stats'][indel_key][nuc] = sum(obj['indel_stats'][indel_key][nuc]
                                                             for obj in obj_list)
         else:
             # Get all values for this key
