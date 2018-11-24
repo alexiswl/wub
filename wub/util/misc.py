@@ -169,13 +169,13 @@ def merge_pickles(obj_list):
         if key not in ['identity', 'accuracy']:
             merged['base_stats'][key] = sum(obj['base_stats'][key] for obj in obj_list)
     # Now calculate identity and accuracy stats
-    merged['base_stats']['identity'] = sum(merged['base_stats']['match']) / \
-                                       (sum(merged['base_stats']['match']) +
-                                        sum(merged['base_stats']['mismatch']))
-    merged['base_stats']['accuracy'] = sum(merged['base_stats']['match']) / \
-                                       (sum(merged['base_stats']['match']) +
-                                        sum(merged['base_stats']['mismatch']) +
-                                        sum(merged['base_stats']['insertion']) +
-                                        sum(merged['base_stats']['deletion']))
+    merged['base_stats']['identity'] = merged['base_stats']['match'] / \
+                                       (merged['base_stats']['match'] +
+                                        merged['base_stats']['mismatch'])
+    merged['base_stats']['accuracy'] = merged['base_stats']['match'] / \
+                                       (merged['base_stats']['match'] +
+                                        merged['base_stats']['mismatch'] +
+                                        merged['base_stats']['insertion'] +
+                                        merged['base_stats']['deletion'])
 
     return merged
