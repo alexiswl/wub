@@ -127,7 +127,7 @@ def merge_pickles(obj_list):
     # Set error stats
     merged['error_stats'] = {}
     # First get all keys (from AAA to NNN)
-    all_error_keys = list(set(chain(obj['error_stats'].keys() for obj in obj_list)))
+    all_error_keys = list(set(list(chain(obj['error_stats'].keys() for obj in obj_list))))
     # Each AAA is a dict (A, C, G, T, '-' *)
     all_nucs = ['A', 'C', 'G', 'T', '-', '*']
     for error_key in all_error_keys:
