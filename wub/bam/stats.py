@@ -189,7 +189,7 @@ def read_stats(bam, min_aqual=0, region=None, with_clipps=False, verbose=True):
     return res
 
 
-def pileup_stats(bam, region=None, verbose=True, with_quals=True):
+def pileup_stats(bam: object, region: object = None, verbose: object = True, with_quals: object = True) -> object:
     """ Parse pileup columns and extract quality values.
 
     :param bam: Input BAM file.

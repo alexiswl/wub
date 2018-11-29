@@ -110,11 +110,15 @@ def merge_pickles(obj_list):
     # Set tag
     merged['tag'] = obj_list[0]['tag']
 
+    # Set pileup stats to none
+    merged['pileup_stats'] = None
+
     # Set read stats
     # Standard set of keys for each object
     read_stats_keys = list(obj_list[0]['read_stats'].keys())
     # Initialise object
     merged['read_stats'] = {}
+
     # Iterate through each key for read_stats
     for key in read_stats_keys:
         # The following attributes are summed

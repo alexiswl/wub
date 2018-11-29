@@ -251,16 +251,19 @@ def error_stat_qc(st, report, csizes, ommit_diagonal=False):
     nd = normalise_data(st)
 
     z = np.zeros((len(bases_plus), len(contexts)), dtype=float)
-    for conti, cont in enumerate(contexts):
-        for bi, b in enumerate(bases_plus):
-            if b in nd[cont]:
-                z[bi][conti] = nd[cont][b]
-            central_base = cont[csizes[0]:len(cont) - csizes[1]]
-            if central_base == b:
-                if ommit_diagonal:
-                    z[bi][conti] = 0.0
-
-    report.plot_pcolor(z, xticks=contexts, yticks=bases_plus,
+    try:
+        for conti, cont in enumerate(contexts):
+            for bi, b in enumerate(bases_plus):
+                if b in nd[cont]:
+                    z[bi][conti] = nd[cont][b]
+                central_base = cont[csizes[0]:len(cont) - csizes[1]]
+                if central_base == b:
+                    if ommit_diagonal:
+                        z[bi][conti] = 0.0
+    except KeyError:
+        pass
+    else:
+        report.plot_pcolor(z, xticks=contexts, yticks=bases_plus,
                        colormap=report.plt.cm.Blues, invert_yaxis=True, title="", xlab="From context", ylab="To base")
 
 
